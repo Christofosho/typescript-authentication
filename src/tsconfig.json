@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "target": "es2022",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "./build",
+    "jsx": "react"
+  },
+  "files": [
+    "server.ts"
+  ]
+}
