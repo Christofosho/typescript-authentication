@@ -1,28 +1,27 @@
 import React, { createElement, MouseEventHandler, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-import ButtonDock from "./components/ButtonDock";
-import LoginDock from "./components/LoginDock";
-import RegisterDock from "./components/RegisterDock";
+import { AccountError } from "./constants";
+import { HOME, LOGIN, REGISTER } from "./constants";
+import { ERROR_NONE } from "./constants";
 
-type InputMouseEvent = MouseEventHandler<HTMLInputElement>;
+import Nav from "./components/Nav";
+import Home from "./components/Home";
+import Account from "./components/Account";
+import Error from "./components/Error";
+
+import { sendCommand } from "./fetcher";
+
 type ButtonMouseEvent = MouseEventHandler<HTMLButtonElement>;
 type HeadingMouseEvent = MouseEventHandler<HTMLHeadingElement>;
 
 const App = () => {
-  const [view, setView] = useState("home");
+  const [view, setView] = useState(HOME);
+  const [error, setError] = useState<AccountError>(ERROR_NONE);
 
   const onNavigate: ButtonMouseEvent = event => {
     const target = event.target as HTMLElement;
     setView(target.dataset.destination!);
-  };
-
-  const onSubmitRegister: InputMouseEvent = event => {
-
-  };
-
-  const onSubmitLogin: InputMouseEvent = event => {
-
   };
 
   const onHomeClick: HeadingMouseEvent = event => {
@@ -32,24 +31,33 @@ const App = () => {
 
   let viewComponent: JSX.Element;
   switch (view) {
-    case "register":
-      viewComponent = <RegisterDock onSubmitRegister={onSubmitRegister} />;
+    case LOGIN:
+      viewComponent = <Account action={LOGIN} onSubmit={sendCommand} onError={setError} />;
       break;
-    case "login":
-      viewComponent = <LoginDock onSubmitLogin={onSubmitLogin} />;
+    case REGISTER:
+      viewComponent = <Account action={REGISTER} onSubmit={sendCommand} onError={setError} />;
       break;
-    case "home":
+    case HOME:
     default:
-      viewComponent = <ButtonDock onNavigate={onNavigate} />;
+      viewComponent = <Home />
       break;
   }
 
-  return (
+  return (<>
+    <header className="header">
+      <h1 className="title" onClick={onHomeClick} data-destination={HOME}>
+        TypeScript Authentication
+      </h1>
+      <Nav onNavigate={onNavigate} active={view} />
+    </header>
     <main className="content">
-      <h1 className="title" onClick={onHomeClick} data-destination="home">TypeScript Authentication</h1>
       {viewComponent}
+      {error.code
+      ? <Error resetError={setError} code={error.code} message={error.message} />
+      : null}
     </main>
-  )
+    <footer></footer>
+  </>)
 };
 
 const rootNode = document.getElementById("root");
