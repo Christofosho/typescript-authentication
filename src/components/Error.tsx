@@ -1,24 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { ERROR_NONE, AccountError } from "../constants";
+import { AccountResponse } from "../verify";
 
-type ErrorProps = AccountError & {
-  resetError: (error: AccountError) => void,
-};
-
-export default ({ resetError, code, message }: ErrorProps) => {
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      resetError(ERROR_NONE);
-    }, 5000);
-  }, []);
-
-  const error = `Error (code: ${code}) - ${message}`;
-
-  // Send an error to the console as well.
-  console.error(error);
-
+export default ({ code, message }: AccountResponse) => {
+  const error = `${code > 0 ? "Success: " : "Error:"} ${message}`;
+  const className = `error${
+    code > 0 ? " error--success" : " error--failure"
+  }`;
   return (
-    <div className="error--account">{error}</div>
+    <div className={className}>{error}</div>
   );
 };

@@ -12,7 +12,10 @@
     "outDir": "./build",
     "jsx": "react"
   },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "test"],
   "files": [
-    "server.ts"
+    "server.ts",
+    "verify.ts",
   ]
 }

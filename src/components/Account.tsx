@@ -1,54 +1,70 @@
-import React, { ChangeEvent, FormEventHandler, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEventHandler, useState } from "react";
+
+import { REGISTER, ResponseData } from "../fetcher";
 
 import {
-  AccountError,
-  validPassword,
-  validPasswordCharacters,
-  validUsername,
-  validUsernameCharacters,
   ACCOUNT_ERROR_PASSWORD_CHARACTERS,
-  ACCOUNT_ERROR_USERNAME_CHARACTERS
-} from "../constants";
+  ACCOUNT_ERROR_REGISTER_FAIL,
+  ACCOUNT_ERROR_USERNAME_CHARACTERS,
+  AccountResponse,
+  ERROR_NONE,
+  NONE,
+  validPasswordCharacters,
+  validUsernameCharacters,
+  verifyAccountCredentials
+} from "../verify";
 
 
 type AccountSubmitFunction = {
-  (action: string, data: { username: string, password: string, }): void,
+  (
+    action: string,
+    data: { username: string, password: string, },
+    callback: (data: ResponseData) => void): void,
 };
 
 interface AccountProps {
   action: string,
   onSubmit: AccountSubmitFunction,
-  onError: (error: AccountError) => void,
+  onNotification: (notice: AccountResponse) => void,
 };
 
-export default ({ action, onSubmit, onError }: AccountProps) => {
+export default ({ action, onSubmit, onNotification }: AccountProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!validUsernameCharacters.test(event.currentTarget.value)) {
-      return onError(ACCOUNT_ERROR_USERNAME_CHARACTERS);
+    if (action === REGISTER && !validUsernameCharacters.test(event.currentTarget.value)) {
+      return onNotification(ACCOUNT_ERROR_USERNAME_CHARACTERS);
     }
     setUsername(event.currentTarget.value);
   };
 
   const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!validPasswordCharacters.test(event.currentTarget.value)) {
-      return onError(ACCOUNT_ERROR_PASSWORD_CHARACTERS);
+    if (action === REGISTER && !validPasswordCharacters.test(event.currentTarget.value)) {
+      return onNotification(ACCOUNT_ERROR_PASSWORD_CHARACTERS);
     }
     setPassword(event.currentTarget.value);
+  };
+
+  const handleSubmissionResponse = (data: ResponseData) => {
+    onNotification(data.body ?? ACCOUNT_ERROR_REGISTER_FAIL);
   };
 
   const submitAccount: FormEventHandler = async event => {
     event.preventDefault();
 
-    if (!validUsername.test(username)) {
-      return onError(ACCOUNT_ERROR_USERNAME_CHARACTERS);
+    onNotification(ERROR_NONE);
+
+    const result = verifyAccountCredentials(username, password);
+
+    if (result.code !== ERROR_NONE.code) {
+      return onNotification(result);
     }
-    if (!validPassword.test(password)) {
-      return onError(ACCOUNT_ERROR_PASSWORD_CHARACTERS);
-    }
-    onSubmit(`/account/${action}`, { username, password });
+
+    onSubmit(`/account/${action}`,
+      { username, password },
+      handleSubmissionResponse
+    );
   }
 
   return (

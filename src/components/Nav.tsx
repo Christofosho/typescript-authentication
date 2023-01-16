@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
 
-import { REGISTER, LOGIN } from "../constants";
+import { REGISTER, LOGIN } from "../fetcher";
 
 import NavButton from "./NavButton";
 
