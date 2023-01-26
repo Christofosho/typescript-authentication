@@ -1,7 +1,9 @@
-import React, { createElement, MouseEventHandler, useEffect, useState } from "react";
+import React, {
+  createElement, MouseEventHandler, useState
+} from "react";
 import { createRoot } from "react-dom/client";
 
-import { AccountResponse, ERROR_NONE } from "./verify";
+import { AccountResponse, ERROR_NONE } from "../common/verify";
 import { HOME, LOGIN, REGISTER } from "./fetcher";
 
 import Nav from "./components/Nav";
@@ -49,9 +51,8 @@ const App = () => {
       {viewComponent}
       {notice.code
       ? <Error code={notice.code} message={notice.message} />
-      : <div className="vertical-filler-20vh"></div>}
+      : <div className="vertical-filler-15vh"></div>}
     </main>
-    <footer className="footer"></footer>
   </>)
 };
 

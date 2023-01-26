@@ -5,9 +5,9 @@ import path from "path";
 
 // Use the .js extension here in place of the flag:
 // --experimental-specifier-resolution=node
-import { ACCOUNT_SUCCESS_REGISTER, AccountResponse, NONE, verifyAccountCredentials } from "./verify.js";
+import { ACCOUNT_SUCCESS_REGISTER, AccountResponse, NONE, verifyAccountCredentials } from "../common/verify.js";
 
-import config from "./production.config.json" assert { type: "json" };
+import config from "../production.config.json" assert { type: "json" };
 
 const server: express.Application = express();
 

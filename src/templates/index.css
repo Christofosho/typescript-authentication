@@ -1,5 +1,5 @@
 *, html, body {
-  background-color: #888;
+  background-color: rgb(242, 228, 193);
   border: 0;
   font-size: 2vw;
   margin: 0;
@@ -8,46 +8,41 @@
 
 #root {
   display: flex;
-  flex-direction: column;
   height: 100vh;
   margin: 0 auto;
-  width: 90vw;
+  width: 100vw;
 }
 
 .header {
+  border-right: 2px solid #AAA;
   display: flex;
-  height: 20vh;
-  justify-content: space-between;
-  min-height: 5rem; /*  */
-  padding: 1vh 0;
-  width: 90vw;
+  flex-direction: column;
+  padding: 1vh 1vw;
+  width: 30vw;
 }
 
 .title {
-  align-items: center;
-  border-right: 1px solid black;
-  color: rgb(64, 0, 128);
+  color: rgb(9, 0, 128);
   cursor: pointer;
   display: flex;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
-  padding-bottom: 1vh;
-  width: 50%;
 }
 
 .nav {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  width: 50%;
 }
 
 .nav-button {
   border-radius: 0;
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   max-height: 200px;
   padding: 1vh 0;
+  text-align: start;
   text-transform: capitalize;
 }
 
@@ -60,7 +55,7 @@
 }
 
 .nav-button--active {
-  color: rgb(86, 0, 172);
+  color: rgb(7, 0, 105);
 }
 
 .content {
@@ -69,34 +64,40 @@
   flex: 1;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 90vw;
+  width: 70vw;
 }
 
 .home, .login, .register {
   display: flex;
-  flex: 1;
   flex-direction: column;
+  height: 70vh;
   justify-content: center;
+  margin-top: 15vh;
+  width: 100%;
 }
 
 .introduction {
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .login__form, .register__form {
   align-items: center;
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  height: 70vh;
   justify-content: space-around;
+  width: 100%;
 }
 
 .text-input, .submit-input {
   border-radius: 0;
   cursor: pointer;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.1rem;
   max-height: 200px;
   padding: 1vh 1vw;
+  text-align: center;
   width: 25vw;
 }
 
@@ -106,56 +107,63 @@
 
 .error {
   font-size: 1rem;
-  height: 30vh;
+  height: 15vh;
   text-align: center;
   vertical-align: middle;
-  width: 70vw;
+  width: 100%;
+  align-self: flex-end;
 }
 
 .error--success {
-  color: rgb(86, 0, 172);
+  color: rgb(7, 0, 105);
 }
 
 .error--failure {
   color: rgb(139, 0, 0);
 }
 
-.footer {
-  height: 10vh;
-  width: 90vw;
+.vertical-filler-15vh {
+  height: 15vh;
 }
 
-.vertical-filler-20vh {
-  height: 20vh;
-}
+@media (width <= 720px) {
+  html {
+    font-size: 4vw;
+  }
 
-@media (width <= 400px) {
-  .header {
+  #root {
     flex-direction: column;
-    height: 10vh;
+  }
+
+  .header {
+    border-bottom: 1px solid #AAA;
+    border-left: 0;
+    flex-direction: row;
+    height: 20vh;
+    justify-content: space-between;
+    padding: 2.5vh 5vw;
+    width: 90vw;
   }
 
   .title {
-    border-bottom: 1px solid black;
-    border-right: 0;
-    font-size: 3rem;
-    justify-content: center;
-    width: 100%;
+    align-items: center;
   }
 
-  .nav {
-    width: 100%;
+  .content {
+    height: 80vh;
+    width: 100vw;
   }
 
-  .nav-button {
-    border: 1px solid #888;
-    border-radius: 10px;
-    font-size: 3rem;
-    padding: 1vh 1vw;
-    width: 30vw;
+  .home, .login, .register {
+    height: 50vh;
   }
 
-  .text-input, .submit-input, .error--account {
-    font-size: 2rem;
+  .text-input {
+    width: 40vw;
+  }
+
+  .error {
+    width: 100vw;
+    align-self: center;
   }
 }

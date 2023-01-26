@@ -2,6 +2,7 @@ import zxcvbn from "zxcvbn";
 
 /* Success */
 
+export const ERROR_ACCOUNT_PASSWORD_MATCH_CODE = -5;
 export const ERROR_ACCOUNT_REGISTER_CODE = -4;
 export const ERROR_ACCOUNT_REGISTER_COMPLEXITY_CODE = -3
 export const ERROR_ACCOUNT_REGISTER_PASSWORD_CODE = -2;
@@ -30,6 +31,7 @@ const ACCOUNT_ERROR_PASSWORD_CHARACTERS_MESSAGE = "The password you have"
   + " ! @ # $ % ^ & * . , _ - or a space character."
   + " You can also consider using a Pass Phrase (https://www.useapassphrase.com/)."
 const ACCOUNT_ERROR_REGISTER_FAIL_MESSAGE = "Failed to register account.";
+const ACCOUNT_ERROR_PASSWORD_MATCH_MESSAGE = "Passwords do not match."
 
 export const ACCOUNT_ERROR_USERNAME_CHARACTERS = {
   code: ERROR_ACCOUNT_REGISTER_USERNAME_CODE,
@@ -39,6 +41,11 @@ export const ACCOUNT_ERROR_USERNAME_CHARACTERS = {
 export const ACCOUNT_ERROR_PASSWORD_CHARACTERS = {
   code: ERROR_ACCOUNT_REGISTER_PASSWORD_CODE,
   message: ACCOUNT_ERROR_PASSWORD_CHARACTERS_MESSAGE,
+};
+
+export const ACCOUNT_ERROR_PASSWORD_MATCH = {
+  code: ERROR_ACCOUNT_PASSWORD_MATCH_CODE,
+  message: ACCOUNT_ERROR_PASSWORD_MATCH_MESSAGE,
 };
 
 export const ACCOUNT_ERROR_REGISTER_FAIL = {

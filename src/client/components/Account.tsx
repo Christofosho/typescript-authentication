@@ -4,6 +4,7 @@ import { REGISTER, ResponseData } from "../fetcher";
 
 import {
   ACCOUNT_ERROR_PASSWORD_CHARACTERS,
+  ACCOUNT_ERROR_PASSWORD_MATCH,
   ACCOUNT_ERROR_REGISTER_FAIL,
   ACCOUNT_ERROR_USERNAME_CHARACTERS,
   AccountResponse,
@@ -12,7 +13,7 @@ import {
   validPasswordCharacters,
   validUsernameCharacters,
   verifyAccountCredentials
-} from "../verify";
+} from "../../common/verify";
 
 
 type AccountSubmitFunction = {
@@ -31,6 +32,7 @@ interface AccountProps {
 export default ({ action, onSubmit, onNotification }: AccountProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (action === REGISTER && !validUsernameCharacters.test(event.currentTarget.value)) {
@@ -46,6 +48,19 @@ export default ({ action, onSubmit, onNotification }: AccountProps) => {
     setPassword(event.currentTarget.value);
   };
 
+  const onPasswordConfirm = (event: ChangeEvent<HTMLInputElement>) => {
+    if (action !== REGISTER) {
+      // Ignore the second password input if we are not registering.
+      return;
+    }
+
+    if (!validPasswordCharacters.test(event.currentTarget.value)) {
+      return onNotification(ACCOUNT_ERROR_PASSWORD_CHARACTERS);
+    }
+
+    setPasswordConfirmation(event.currentTarget.value);
+  }
+
   const handleSubmissionResponse = (data: ResponseData) => {
     onNotification(data.body ?? ACCOUNT_ERROR_REGISTER_FAIL);
   };
@@ -55,10 +70,16 @@ export default ({ action, onSubmit, onNotification }: AccountProps) => {
 
     onNotification(ERROR_NONE);
 
-    const result = verifyAccountCredentials(username, password);
+    if (action === REGISTER) {
+      if (password !== passwordConfirmation) {
+        return onNotification(ACCOUNT_ERROR_PASSWORD_MATCH);
+      }
 
-    if (result.code !== ERROR_NONE.code) {
-      return onNotification(result);
+      const result = verifyAccountCredentials(username, password);
+
+      if (result.code !== ERROR_NONE.code) {
+        return onNotification(result);
+      }
     }
 
     onSubmit(`/account/${action}`,
@@ -74,6 +95,9 @@ export default ({ action, onSubmit, onNotification }: AccountProps) => {
           placeholder="Username" onChange={onUsernameChange} value={username} />
         <input type="password" className="text-input password-input"
           placeholder="Password" onChange={onPasswordChange} value={password} />
+        {action === REGISTER && <input type="password" className="text-input password-input"
+          placeholder="Re-enter password" onChange={onPasswordConfirm}
+          value={passwordConfirmation} />}
         <input type="submit" className="submit-input" value="Submit" />
       </form>
     </section>
