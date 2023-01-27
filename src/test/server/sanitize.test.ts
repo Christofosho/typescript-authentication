@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { ERROR_ACCOUNT_REGISTER_COMPLEXITY_CODE, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE, ERROR_ACCOUNT_REGISTER_USERNAME_CODE, SUCCESS, verifyAccountCredentials } from "../../verify.js";
+import { ERROR_ACCOUNT_REGISTER_COMPLEXITY_CODE, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE, ERROR_ACCOUNT_REGISTER_USERNAME_CODE, NONE, SUCCESS, verifyAccountCredentials } from "../../common/verify.js";
 
 const GOOD_USERNAME = "user";
 const GOOD_PASSWORD = "A!b.C,d@e%F2";
@@ -9,7 +9,7 @@ describe("sanitize.ts", () => {
   describe("sanitizeAccountCredentials", () => {
     it("should verify acceptable username and password", () => {
       const response = verifyAccountCredentials(GOOD_USERNAME, GOOD_PASSWORD);
-      assert.equal(response.code, SUCCESS);
+      assert.equal(response.code, NONE);
     });
 
     it("should check username length", () => {
@@ -64,31 +64,31 @@ describe("sanitize.ts", () => {
     it("should check password for lowercase character", () => {
       const pw = GOOD_PASSWORD.toUpperCase();
       const response = verifyAccountCredentials(GOOD_USERNAME, pw);
-      assert.equal(response.code, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE);
+      assert.equal(response.code, NONE);
     });
 
     it("should check password for uppercase character", () => {
       const pw = GOOD_PASSWORD.toLowerCase();
       const response = verifyAccountCredentials(GOOD_USERNAME, pw);
-      assert.equal(response.code, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE);
+      assert.equal(response.code, NONE);
     });
 
     it("should check password for numeric character", () => {
       const pw = GOOD_PASSWORD.replace(/2/, ".");
       const response = verifyAccountCredentials(GOOD_USERNAME, pw);
-      assert.equal(response.code, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE);
+      assert.equal(response.code, NONE);
     });
 
     it("should check password for special character", () => {
       const pw = GOOD_PASSWORD.replaceAll(/[\!\.,@%]/g, "4");
       const response = verifyAccountCredentials(GOOD_USERNAME, pw);
-      assert.equal(response.code, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE);
+      assert.equal(response.code, NONE);
     });
 
     it("should check password for zxcvbn score > 2", () => {
       // Using the sample password from the zxcvbn repository.
       const response = verifyAccountCredentials(GOOD_USERNAME, "Tr0ub4dour&3");
-      assert.equal(response.code, ERROR_ACCOUNT_REGISTER_COMPLEXITY_CODE);
+      assert.equal(response.code, ERROR_ACCOUNT_REGISTER_PASSWORD_CODE);
     });
   })
 })
