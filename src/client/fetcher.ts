@@ -1,4 +1,4 @@
-import { AccountResponse } from "../common/verify";
+import { AccountResponse } from "../common/verify.js";
 
 export const HOME: string = "home";
 export const LOGIN: string = "login";

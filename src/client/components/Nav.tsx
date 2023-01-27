@@ -1,8 +1,8 @@
 import React, { MouseEventHandler } from "react";
 
-import { REGISTER, LOGIN } from "../fetcher";
+import { REGISTER, LOGIN } from "../fetcher.js";
 
-import NavButton from "./NavButton";
+import NavButton from "./NavButton.js";
 
 interface ButtonProps {
   onNavigate: MouseEventHandler<HTMLButtonElement>,

@@ -1,19 +1,35 @@
 import zxcvbn from "zxcvbn";
 
 /* Success */
-
+export const ERROR_ACCOUNT_LOGOUT_FAIL_CODE = -7;
+export const ERROR_ACCOUNT_LOGIN_FAIL_CODE = -6;
 export const ERROR_ACCOUNT_PASSWORD_MATCH_CODE = -5;
-export const ERROR_ACCOUNT_REGISTER_CODE = -4;
+export const ERROR_ACCOUNT_REGISTER_FAIL_CODE = -4;
 export const ERROR_ACCOUNT_REGISTER_COMPLEXITY_CODE = -3
 export const ERROR_ACCOUNT_REGISTER_PASSWORD_CODE = -2;
 export const ERROR_ACCOUNT_REGISTER_USERNAME_CODE = -1;
 export const NONE = 0;
 export const SUCCESS = 1;
 
+const ACCOUNT_SUCCESS_REGISTER_MESSAGE = "Successfully registered account!";
+const ACCOUNT_SUCCESS_LOGIN_MESSAGE = "Successfully logged in!";
+const ACCOUNT_SUCCESS_LOGOUT_MESSAGE = "Successfully logged out!";
+
 export const ACCOUNT_SUCCESS_REGISTER = {
   code: SUCCESS,
-  message: "Successfully registered account!",
+  message: ACCOUNT_SUCCESS_REGISTER_MESSAGE,
 };
+
+export const ACCOUNT_SUCCESS_LOGIN = {
+  code: SUCCESS,
+  message: ACCOUNT_SUCCESS_LOGIN_MESSAGE,
+};
+
+export const ACCOUNT_SUCCESS_LOGOUT = {
+  code: SUCCESS,
+  message: ACCOUNT_SUCCESS_LOGOUT_MESSAGE,
+};
+
 
 type AccountSuccess = typeof ACCOUNT_SUCCESS_REGISTER;
 
@@ -31,6 +47,8 @@ const ACCOUNT_ERROR_PASSWORD_CHARACTERS_MESSAGE = "The password you have"
   + " ! @ # $ % ^ & * . , _ - or a space character."
   + " You can also consider using a Pass Phrase (https://www.useapassphrase.com/)."
 const ACCOUNT_ERROR_REGISTER_FAIL_MESSAGE = "Failed to register account.";
+const ACCOUNT_ERROR_LOGIN_FAIL_MESSAGE = "Failed to log in.";
+const ACCOUNT_ERROR_LOGOUT_FAIL_MESSAGE = "Failed to log out.";
 const ACCOUNT_ERROR_PASSWORD_MATCH_MESSAGE = "Passwords do not match."
 
 export const ACCOUNT_ERROR_USERNAME_CHARACTERS = {
@@ -49,14 +67,26 @@ export const ACCOUNT_ERROR_PASSWORD_MATCH = {
 };
 
 export const ACCOUNT_ERROR_REGISTER_FAIL = {
-  code: ERROR_ACCOUNT_REGISTER_CODE,
+  code: ERROR_ACCOUNT_REGISTER_FAIL_CODE,
   message: ACCOUNT_ERROR_REGISTER_FAIL_MESSAGE,
+};
+
+export const ACCOUNT_ERROR_LOGIN_FAIL = {
+  code: ERROR_ACCOUNT_LOGIN_FAIL_CODE,
+  message: ACCOUNT_ERROR_LOGIN_FAIL_MESSAGE,
+};
+
+export const ACCOUNT_ERROR_LOGOUT_FAIL = {
+  code: ERROR_ACCOUNT_LOGOUT_FAIL_CODE,
+  message: ACCOUNT_ERROR_LOGOUT_FAIL_MESSAGE,
 };
 
 type AccountError = typeof ERROR_NONE
     | typeof ACCOUNT_ERROR_USERNAME_CHARACTERS
     | typeof ACCOUNT_ERROR_PASSWORD_CHARACTERS
-    | typeof ACCOUNT_ERROR_REGISTER_FAIL;
+    | typeof ACCOUNT_ERROR_REGISTER_FAIL
+    | typeof ACCOUNT_ERROR_LOGIN_FAIL
+    | typeof ACCOUNT_ERROR_LOGOUT_FAIL;
 
 export type AccountResponse = AccountSuccess|AccountError;
 

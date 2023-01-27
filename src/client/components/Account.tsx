@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEventHandler, useState } from "react";
 
-import { REGISTER, ResponseData } from "../fetcher";
+import { REGISTER, ResponseData } from "../fetcher.js";
 
 import {
   ACCOUNT_ERROR_PASSWORD_CHARACTERS,
@@ -13,7 +13,7 @@ import {
   validPasswordCharacters,
   validUsernameCharacters,
   verifyAccountCredentials
-} from "../../common/verify";
+} from "../../common/verify.js";
 
 
 type AccountSubmitFunction = {

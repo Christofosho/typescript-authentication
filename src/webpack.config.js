@@ -20,6 +20,9 @@ export default {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    extensionAlias: {
+      ".js": [".js", ".ts", ".tsx"]
+    }
   },
   output: {
     path: path.join(__basePath, "public"),

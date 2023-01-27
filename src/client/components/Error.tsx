@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AccountResponse } from "../../common/verify";
+import { AccountResponse } from "../../common/verify.js";
 
 export default ({ code, message }: AccountResponse) => {
   const error = `${code > 0 ? "Success: " : "Error:"} ${message}`;

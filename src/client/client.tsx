@@ -3,15 +3,15 @@ import React, {
 } from "react";
 import { createRoot } from "react-dom/client";
 
-import { AccountResponse, ERROR_NONE } from "../common/verify";
-import { HOME, LOGIN, REGISTER } from "./fetcher";
+import { AccountResponse, ERROR_NONE } from "../common/verify.js";
+import { HOME, LOGIN, REGISTER } from "./fetcher.js";
 
-import Nav from "./components/Nav";
-import Home from "./components/Home";
-import Account from "./components/Account";
-import Error from "./components/Error";
+import Nav from "./components/Nav.js";
+import Home from "./components/Home.js";
+import Account from "./components/Account.js";
+import Error from "./components/Error.js";
 
-import { sendCommand } from "./fetcher";
+import { sendCommand } from "./fetcher.js";
 
 type ButtonMouseEvent = MouseEventHandler<HTMLButtonElement>;
 type HeadingMouseEvent = MouseEventHandler<HTMLHeadingElement>;

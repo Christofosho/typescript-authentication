@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "target": "es2022",
     "noImplicitAny": true,
     "removeComments": true,
@@ -15,7 +15,6 @@
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "test"],
   "files": [
-    "server/server.ts",
-    "common/verify.ts",
+    "server/server.ts"
   ]
 }
